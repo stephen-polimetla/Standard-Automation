@@ -1,0 +1,17 @@
+1. Growth Minded – Practicing New Behaviors (Recent Assignment)
+
+Situation: In a recent banking automation initiative, our team was struggling with delays due to unclear requirements across squads.
+Action: I intentionally practiced Growth Minded behavior by proactively clarifying assumptions early, asking deeper “why” questions, and validating requirements directly with stakeholders instead of waiting for escalation.
+Outcome: This helped us prevent rework, reduce cycle time for defect closures, and improved transparency across the tribe. The team appreciated the clarity, and it strengthened our delivery discipline.
+
+2. Client-Focused – Demonstrating Behavior With a Client
+
+Situation: While working with an external banking client on automating Jira defect workflows, they were facing recurring issues due to inconsistent data inputs.
+Action: I demonstrated Client-Focused behavior by conducting a short diagnostic session with the client, mapping their pain points, and proposing a simplified data validation step within the workflow.
+Outcome: This improved the accuracy of incoming tickets, reduced manual correction time for the client, and strengthened trust—they now involve us earlier for process improvements.
+
+3. Inclusive & Feedback-Driven – Using Feedback to Improve
+
+Situation: My manager shared feedback that my updates during standups were too technical, making it difficult for non-engineering stakeholders to follow.
+Action: I applied Inclusive & Feedback-Driven behavior by restructuring my updates using a simple business-first format (impact → progress → blockers).
+Outcome: My communication became clearer and more accessible to cross-functional teams like QA, Product, and Business Operations. It improved alignment and reduced unnecessary follow-up discussions.
