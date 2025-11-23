@@ -33,6 +33,9 @@ dependencies {
 
     // TestNG (kept as testImplementation for the TestNG task)
     testImplementation "org.testng:testng:${testngVersion}"
+
+    // SLF4J binding - Logback logger implementation so SLF4J warnings are removed
+    implementation 'ch.qos.logback:logback-classic:1.4.11'
 }
 
 test {
