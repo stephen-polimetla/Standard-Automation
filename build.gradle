@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.example'
+version = '0.1.0-SNAPSHOT'
+
+java {
+    // Use Gradle Java toolchain to target Java 23. Ensure JDK 23 is installed or available to Gradle.
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(23)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    // upgraded to Selenium 4.x so Selenium Manager can auto-resolve browser drivers
+    seleniumVersion = '4.14.0'
+    junitJupiterVersion = '5.10.0'
+    testngVersion = '7.7.1'
+}
+
+dependencies {
+    implementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+
+    // JUnit 5 - use the API at compile time and provide the engine and launcher at test runtime
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.10.0"
+
+    // TestNG (kept as testImplementation for the TestNG task)
+    testImplementation "org.testng:testng:${testngVersion}"
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+task testNg(type: Test) {
+    description = 'Runs TestNG tests.'
+    group = 'verification'
+    useTestNG()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+// Ensure the TestNG task runs the compiled test classes and depends on compilation
+testNg {
+    dependsOn testClasses
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+check.dependsOn testNg
