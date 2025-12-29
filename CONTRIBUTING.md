@@ -1,32 +1,6 @@
-# Standard-Automation
-A minimal, runnable example showing Selenium UI tests with Gradle using JUnit 5 (Jupiter) and TestNG.
+# Contributing & Usage
 
-Quick start
-
-1. Clone the repo and open a terminal in the repository root.
-2. Run JUnit tests:
-
-```powershell
-.\gradlew.bat clean test
-```
-
-3. Run TestNG tests:
-
-```powershell
-.\gradlew.bat testNg
-```
-
-4. Run full build (both):
-
-```powershell
-.\gradlew.bat build
-```
-
-For full usage, troubleshooting, CI tips and detailed explanations of the features, see `CONTRIBUTING.md`.
-# Standard-Automation
-A minimal, runnable example showing Selenium UI tests with Gradle using both JUnit 5 (Jupiter) and TestNG.
-
-This repo is intended as a starter project you can copy or fork. It shows a practical Gradle configuration, sample tests, logging, and driver handling so you can run browser tests locally or in CI.
+This document contains full usage instructions, troubleshooting, and CI tips for the Standard-Automation project.
 
 ## What this project provides
 
@@ -87,7 +61,7 @@ If you have Gradle installed globally, you can replace `./gradlew.bat` with `gra
 
 - The sample tests use headless Chrome flags for CI compatibility. For example: `--headless=new`, `--no-sandbox`, `--disable-dev-shm-usage`.
 - In containerized CI environments, `--disable-dev-shm-usage` and `--no-sandbox` often help avoid crashes.
-- Selenium Manager requires network access to download drivers. In air-gapped CI, pre-provision the driver or vendor it in the image.
+- Selenium Manager requires network access to download drivers. In air-gapped CI, pre-provision the driver or cache the driver.
 
 ## Logging
 
@@ -95,13 +69,15 @@ If you have Gradle installed globally, you can replace `./gradlew.bat` with `gra
 
 ## Troubleshooting
 
-- "Could not start Gradle Test Executor: Failed to load JUnit Platform" — ensure `junit-jupiter-engine` and `junit-platform-launcher` are present on the test runtime classpath (this buildconfig includes them).
+- "Could not start Gradle Test Executor: Failed to load JUnit Platform" — ensure `junit-jupiter-engine` and `junit-platform-launcher` are present on the test runtime classpath (this build config includes them).
 - "The path to the driver executable must be set" — either rely on Selenium Manager (Selenium 4.x) or install `chromedriver` on PATH, set `webdriver.chrome.driver`, or use WebDriverManager.
 - SLF4J `StaticLoggerBinder` warnings — resolved by including Logback.
 
-## CI / Automation
+## CI / Automation suggestions
 
-If you want, I can add a GitHub Actions workflow that runs both `./gradlew.bat build` and `./gradlew.bat testNg` on push and PRs.
+- Use the Gradle wrapper in CI to ensure consistent Gradle version: `./gradlew build`.
+- Ensure the CI runner has JDK 23 or adjust the `java.toolchain` setting in `build.gradle`.
+- If your CI environment is air-gapped, pre-install the matching driver or cache the driver — Selenium Manager requires network access the first time to download a driver.
 
 ## Files of interest
 
@@ -112,38 +88,8 @@ If you want, I can add a GitHub Actions workflow that runs both `./gradlew.bat b
 - `src/test/java/com/example/selenium/TestNGSeleniumTest.java`
 - `src/main/resources/logback.xml`
 
----
+## Contributing
 
-If you'd like the README shortened, or if you prefer a quick-start section only, tell me which parts to keep and I'll update it.
-# Standard-Automation
-Sample projects demonstrating different testing frameworks.
+If you add new tests or change dependency versions, please run both `./gradlew test` and `./gradlew testNg` locally (or via CI) to ensure both build paths remain valid.
 
-## Gradle Selenium 3 sample (JUnit + TestNG)
-
-I added a Gradle build and sample Selenium tests that demonstrate running Selenium 3 with both JUnit 4 and TestNG.
-
-What I added
-- `build.gradle` - Gradle configuration with Selenium 3 (`3.141.59`), JUnit 4 and TestNG dependencies, plus a `testNg` task.
-- `settings.gradle` - project name.
-- `src/test/java/com/example/selenium/JUnitSeleniumTest.java` - sample JUnit 4 test using Chrome (headless).
-- `src/test/java/com/example/selenium/TestNGSeleniumTest.java` - sample TestNG test using Chrome (headless).
-
-Prerequisites
-- Java JDK (8+).
-- Chrome and chromedriver on PATH, or set the `webdriver.chrome.driver` system property to point to your chromedriver binary.
-
-Run tests (PowerShell)
-```powershell
-# Run JUnit tests (default 'test' task)
-gradle clean test
-
-# Run TestNG tests (task added as 'testNg')
-gradle testNg
-
-# Run full verification (both test tasks: JUnit + TestNG)
-gradle build
-```
-
-Notes
-- I did not add the Gradle wrapper. If you'd like I can add the wrapper files (`gradlew`, `gradlew.bat`, `gradle/wrapper/*`) so contributors don't need a local Gradle install.
-- If you prefer JUnit 5 (Jupiter) instead of JUnit 4, I can switch the example and Gradle configuration.
+If you want help adding WebDriverManager, improving CI, or making Chrome flags configurable via environment variables, open an issue or a PR and I can help.
